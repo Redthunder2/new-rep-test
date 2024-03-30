@@ -1,24 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import Fetching from './pages/fetching';
+import AddItems from './pages/addItems'
+import Form from './pages/addNotes'
+import NotesAdd from './pages/notesAdd'
+import Notes from './pages/notes'
+import {useState} from 'react'
+import NewNotes from './pages/NewNotes';
+import { QueryClient } from '@tanstack/react-query';
 
-function App() {
+function App(props) {
+  const [isOpen,setIsOpen] = useState(false)
+  const queryClient = props.client;
+  function addNote () {
+    setIsOpen(true)
+}
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+       {/*  <Notes /> */}
+        <button className='bg-blue-500 px-3 py-1 rounded my-0 mx-auto block hover:bg-blue-600' onClick={addNote}>Add</button>
+        <Fetching/>
+        <NewNotes />
+       {/*  <NotesAdd isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+        { <AddItems isOpen={isOpen} setIsOpen={setIsOpen} /> } 
+        {/* <Form  isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+        <button  className='bg-blue-500 px-3 py-1 rounded my-0 mx-auto block mt-5 hover:bg-blue-600' onClick={()=>{
+          const data = queryClient.getQueryData(['newNotes'])
+          console.log(data)
+        }}>Get Data</button>
+        </>
   );
 }
 

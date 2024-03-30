@@ -1,17 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import { QueryClientProvider,QueryClient } from '@tanstack/react-query'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const queryClient = new QueryClient()
+const rootElement = document.getElementById('root')
+ReactDOM.createRoot(rootElement).render(
+<QueryClientProvider client={queryClient}>
+    <App client={queryClient} />
+</QueryClientProvider>
+)
